@@ -1,0 +1,33 @@
+#1
+x <- runif(30, -15, 15)
+y <- runif(30, -1, 1)
+y1 <- runif(30, -15, 15)
+x1 <- runif(30, -1, 1)
+x=c(x,x1)
+y=c(y,y1)
+data<-data.frame(x,y)
+library(cluster)
+cl1 <- clara(data, 4)
+plot(data, col = cl1$clustering, xlab = "x", ylab = "y")
+
+cl2 <-kmeans(data,3)
+plot(data, col = cl2$cluster)
+points(cl2$centers, col = 1:2, pch = 8, cex=2)
+
+#2
+votes <- data("votes.repub")
+vt <- plot(agnes(votes.repub))
+
+#3
+
+library(cluster)
+cl<-kmeans(mtcars,4)
+s<-cl$size
+cl$centers
+numb<-cl$cluster
+rownames(mtcars)[which(numb==4)]
+rownames(mtcars)[which(numb==3)]
+rownames(mtcars)[which(numb==2)]
+rownames(mtcars)[which(numb==1)]
+data("mtcars")
+plot(agnes(mtcars))
