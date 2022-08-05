@@ -1,0 +1,62 @@
+install.packages("DAAG")
+library(DAAG)
+install.packages("tree")
+library(tree)
+install.packages("maptree")
+
+USArrests
+summary(USArrests)
+
+state.names = row.names(USArrests)
+barplot(USArrests$Murder, names.arg = state.names, las = 2, ylab = "Murder Rate per 100,000", 
+        main = "Murder Rate in the United States in 1973")
+
+df.stand <- as.data.frame(scale(USArrests))
+(clus <- kmeans(df.stand, centers = 5))
+
+
+
+
+x <- which(USArrests$Assault == max(USArrests$Assault))
+rownames(USArrests)[x]
+x <- which(USArrests$Assault == min(USArrests$Assault))
+rownames(USArrests)[x]
+x <- which(USArrests$Murder == max(USArrests$Murder))
+rownames(USArrests)[x]
+x <- which(USArrests$Murder == min(USArrests$Murder))
+rownames(USArrests)[x]
+x <- which(USArrests$Rape == max(USArrests$Rape))
+rownames(USArrests)[x]
+x <- which(USArrests$Rape == min(USArrests$Rape))
+rownames(USArrests)[x]
+
+assault.median = median(USArrests$Assault)
+assault.median
+subset(USArrests, Assault > assault.median, select= c(UrbanPop, Assault))
+
+library(cluster)
+
+cl<-kmeans(USArrests,4)
+s<-cl$size
+cl$centers
+numb<-cl$cluster
+rownames(USArrests)[which(numb==4)]
+rownames(USArrests)[which(numb==3)]
+rownames(USArrests)[which(numb==2)]
+rownames(USArrests)[which(numb==1)]
+data("USArrests")
+plot(agnes(USArrests))
+
+cor(USArrests)
+with(USArrests, plot(UrbanPop, Murder))
+with(USArrests, plot(UrbanPop, Assault))
+with(USArrests, plot(UrbanPop, Rape))
+
+factanal(USArrests, 1)
+
+install.packages("tree")
+library(tree)
+ir.tr <- tree(Murder~., USArrests)
+plot(ir.tr, type="uniform")
+text(tr)
+draw.tree(tr)
